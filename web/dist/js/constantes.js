@@ -1,0 +1,11 @@
+
+const ep_user = "http://localhost:8080/EDDProyect2/rest/app/loginuser"
+const insertDestino = "http://localhost:8080/EDDProyect2/rest/app/insertDestination"
+const insertRuta = "http://localhost:8080/EDDProyect2/rest/app/insertRoute"
+const getRutas = "http://localhost:8080/EDDProyect2/rest/app/getListRoute"
+const getDestinos = "http://localhost:8080/EDDProyect2/rest/app/getListDestination"
+const insertUsuario = "http://localhost:8080/EDDProyect2/rest/app/registerUser"
+const getUsuarios = "http://localhost:8080/EDDProyect2/rest/app/getListUsers"
+const getImages = "http://localhost:8080/EDDProyect2/rest/app/getImages"
+const updateRuta = "http://localhost:8080/EDDProyect2/rest/app/updateRoute"
+const getReservaciones = "http://localhost:8080/EDDProyect2/rest/app/getReservations"

@@ -5,25 +5,20 @@
  */
 package Servlets;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 /**
  *
  * @author Eddie
  */
-@WebServlet(name = "ServiceInsertB", urlPatterns = {"/ServiceInsertB"})
-@MultipartConfig()
-public class ServiceInsertB extends HttpServlet {
+@WebServlet(name = "ServiceGetbase", urlPatterns = {"/ServiceGetbase"})
+public class ServiceGetbase extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,26 +32,9 @@ public class ServiceInsertB extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Part filePart = request.getPart("inputDestinaation");
-        InputStream fileContent = filePart.getInputStream();
-        InputStreamReader isr = new InputStreamReader(fileContent);
-        BufferedReader fichero;
-        String sFichero = "";
-        try{
-            fichero = new BufferedReader(isr);
-            String line;
-            while((line = fichero.readLine()) != null){
-                sFichero = new String(line.getBytes("ISO-8859-1"), "UTF-8");
-                String[] parts = sFichero.split(",");
-                parts[1] = parts[1].trim();
-                int code = Integer.parseInt(parts[0]);
-                insertDestination(code, parts[1]);                
-            }
-            fichero.close();
-            constructMatrix();
-        }catch(IOException e){
-        }
-        response.sendRedirect("carganodos_view.jsp");
+        List<String> auxarr = getGraphs();
+        request.getSession().setAttribute("Graphs", auxarr);
+        response.sendRedirect("reportes_view.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -98,15 +76,12 @@ public class ServiceInsertB extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private static String insertDestination(int code, java.lang.String country) {
+    private static java.util.List<java.lang.String> getGraphs() {
         wsservices.WSAirport_Service service = new wsservices.WSAirport_Service();
         wsservices.WSAirport port = service.getWSAirportPort();
-        return port.insertDestination(code, country);
+        return port.getGraphs();
     }
 
-    private static void constructMatrix() {
-        wsservices.WSAirport_Service service = new wsservices.WSAirport_Service();
-        wsservices.WSAirport port = service.getWSAirportPort();
-        port.constructMatrix();
-    }
+
+
 }

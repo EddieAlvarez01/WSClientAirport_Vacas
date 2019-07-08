@@ -237,7 +237,7 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="rutas_view.html" aria-expanded="false"><i class="mdi mdi-airplane"></i><span class="hide-menu">Rutas</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="nuevo_destino.html" aria-expanded="false"><i class="mdi mdi-airplane"></i><span class="hide-menu">Crear Destino</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="nueva_ruta.html" aria-expanded="false"><i class="mdi mdi-airplane"></i><span class="hide-menu">Crear Ruta</span></a></li>
@@ -246,8 +246,8 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="usuarios_view.html" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Usuarios</span></a></li>
                          <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="reservaciones_view.html" aria-expanded="false"><i class="mdi mdi-home"></i><span class="hide-menu">Reservas</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="carganodos_view.jsp" aria-expanded="false"><i class="mdi mdi-arrow-up-bold-circle"></i><span class="hide-menu">Carga Nodos Destino</span></a></li>
-                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cargarutas_view.html" aria-expanded="false"><i class="mdi mdi-arrow-up-bold-circle"></i><span class="hide-menu">Carga Rutas de Vuelo</span></a></li>
-                          <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="reportes_view.html" aria-expanded="false"><i class="mdi mdi-book-open"></i><span class="hide-menu">Reportes</span></a></li>
+                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cargarutas_view.jsp" aria-expanded="false"><i class="mdi mdi-arrow-up-bold-circle"></i><span class="hide-menu">Carga Rutas de Vuelo</span></a></li>
+                          <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ServiceGetbase" aria-expanded="false"><i class="mdi mdi-book-open"></i><span class="hide-menu">Reportes</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -291,8 +291,9 @@
                             <div class="card-body">
                                 <h4 class="card-title">Cargar Archivo</h4>
                                 <div class="form-group">
-                                    <form action="ServiceInsertB" method="POST">
-                                       <input type="file" id="file-input" name="inputDestinaation"  data-control="hue" >
+                                    <form action="ServiceInsertB" method="POST" enctype="multipart/form-data">
+                                       <input type="file" id="file-input" name="inputDestinaation" >
+                                       <input type="submit" value="Cargar">
                                     </form>
                                 </div>
                             </div>

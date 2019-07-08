@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -21,9 +22,9 @@ import javax.servlet.http.Part;
  *
  * @author Eddie
  */
-@WebServlet(name = "ServiceInsertB", urlPatterns = {"/ServiceInsertB"})
+@WebServlet(name = "ServiceInsertRoute", urlPatterns = {"/ServiceInsertRoute"})
 @MultipartConfig()
-public class ServiceInsertB extends HttpServlet {
+public class ServiceInsertRoute extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,26 +38,30 @@ public class ServiceInsertB extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Part filePart = request.getPart("inputDestinaation");
+        Part filePart = request.getPart("inputRoute");
         InputStream fileContent = filePart.getInputStream();
         InputStreamReader isr = new InputStreamReader(fileContent);
         BufferedReader fichero;
-        String sFichero = "";
         try{
             fichero = new BufferedReader(isr);
             String line;
             while((line = fichero.readLine()) != null){
-                sFichero = new String(line.getBytes("ISO-8859-1"), "UTF-8");
+                String sFichero = new String(line.getBytes("ISO-8859-1"), "UTF-8");
                 String[] parts = sFichero.split(",");
                 parts[1] = parts[1].trim();
-                int code = Integer.parseInt(parts[0]);
-                insertDestination(code, parts[1]);                
+                parts[2] = parts[2].trim();
+                parts[3] = parts[3].trim();
+                parts[4] = parts[4].trim();
+                int code1 = Integer.parseInt(parts[0]);
+                int code2 = Integer.parseInt(parts[1]);
+                double cost = Double.parseDouble(parts[2]);
+                int time = Integer.parseInt(parts[3]);
+                insertRoute(code1, code2, cost, time, parts[4]);
             }
             fichero.close();
-            constructMatrix();
         }catch(IOException e){
         }
-        response.sendRedirect("carganodos_view.jsp");
+        response.sendRedirect("cargarutas_view.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -98,15 +103,10 @@ public class ServiceInsertB extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private static String insertDestination(int code, java.lang.String country) {
+    private static String insertRoute(int code1, int code2, double cost, int time, java.lang.String pilot) {
         wsservices.WSAirport_Service service = new wsservices.WSAirport_Service();
         wsservices.WSAirport port = service.getWSAirportPort();
-        return port.insertDestination(code, country);
+        return port.insertRoute(code1, code2, cost, time, pilot);
     }
 
-    private static void constructMatrix() {
-        wsservices.WSAirport_Service service = new wsservices.WSAirport_Service();
-        wsservices.WSAirport port = service.getWSAirportPort();
-        port.constructMatrix();
-    }
 }

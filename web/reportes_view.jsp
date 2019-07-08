@@ -1,9 +1,12 @@
+<%-- 
+    Document   : reportes_view
+    Created on : 7/07/2019, 10:48:01 PM
+    Author     : Eddie
+--%>
+
+<%@page import="java.util.List"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html dir="ltr" lang="en">
 
 <head>
@@ -17,8 +20,7 @@ and open the template in the editor.
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
     <title>Matrix Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
-    <link href="assets/libs/flot/css/float-chart.css" rel="stylesheet">
-    <!-- Custom CSS -->
+    <link href="assets/libs/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
     <link href="dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -243,7 +245,7 @@ and open the template in the editor.
                          <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="reservaciones_view.html" aria-expanded="false"><i class="mdi mdi-home"></i><span class="hide-menu">Reservas</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="carganodos_view.jsp" aria-expanded="false"><i class="mdi mdi-arrow-up-bold-circle"></i><span class="hide-menu">Carga Nodos Destino</span></a></li>
                          <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cargarutas_view.jsp" aria-expanded="false"><i class="mdi mdi-arrow-up-bold-circle"></i><span class="hide-menu">Carga Rutas de Vuelo</span></a></li>
-                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ServiceGetbase" aria-expanded="false"><i class="mdi mdi-book-open"></i><span class="hide-menu">Reportes</span></a></li>
+                          <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ServiceGetbase" aria-expanded="false"><i class="mdi mdi-book-open"></i><span class="hide-menu">Reportes</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -260,16 +262,12 @@ and open the template in the editor.
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
-             <div class="page-breadcrumb">
+            <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Dashboard</h4>
+                        <h4 class="page-title">Reportes</h4>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
-                                </ol>
                             </nav>
                         </div>
                     </div>
@@ -283,71 +281,57 @@ and open the template in the editor.
             <!-- ============================================================== -->
             <div class="container-fluid">
                 <!-- ============================================================== -->
-                <!-- Sales Cards  -->
+                <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row">
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-4 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-cyan text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-city"></i></h1>
-                                <h6 class="text-white">Edificios</h6>
+                <div class="row el-element-overlay" id="divImages">
+                    <%
+                        List<String> list = (List<String>)session.getAttribute("Graphs");
+                        for(int i=0; i<list.size(); i++){
+                            if(list.get(i) != "" && list.get(i) != null){
+                                %>
+                                <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="el-card-item">
+                                <div class="el-card-avatar el-overlay-1"> <img src="data:image/png;base64,<%= list.get(i) %>" alt="user" />
+                                    <div class="el-overlay">
+                                        <ul class="list-style-none el-info">
+                                            <% 
+                                            switch(i){
+                                                case 0:
+                                                    %>
+                                                    <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="data:image/png;base64,<%= list.get(i) %>"><i class="mdi mdi-magnify-plus"></i></a></li>
+                                                <%
+                                                    break;
+                                                case 1:
+                                                    %>
+                                                <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="data:image/png;base64,<%= list.get(i) %>"><i class="mdi mdi-magnify-plus"></i></a></li>
+                                                <%
+                                                    break;
+                                            }
+                                                %>
+                                            <li class="el-item"><a class="btn default btn-outline el-link" href="javascript:void(0);"><i class="mdi mdi-link"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="el-card-content">
+                                    <h4 class="m-b-0">Imagen</h4> <span class="text-muted"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-4 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-success text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-book-open"></i></h1>
-                                <h6 class="text-white">Cursos</h6>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-danger text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-account"></i></h1>
-                                <h6 class="text-white">Catedraticos</h6>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- Column -->
-                     <div class="col-md-6 col-lg-4 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-info text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-arrow-up-bold-circle"></i></h1>
-                                <h6 class="text-white">Carga de Archivos</h6>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-8 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-warning text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-calendar"></i></h1>
-                                <h6 class="text-white">Calendario</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    
-                    <!-- Column -->
-                    
-                    <!-- Column -->
-                </div>
+                         <%
+                            }
+                        }
+                        %>
                 <!-- ============================================================== -->
-                <!-- Sales chart -->
+                <!-- End PAge Content -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
-                <!-- Sales chart -->
+                <!-- Right sidebar -->
                 <!-- ============================================================== -->
+                <!-- .right-sidebar -->
                 <!-- ============================================================== -->
-                <!-- Recent comment and chats -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Recent comment and chats -->
+                <!-- End Right sidebar -->
                 <!-- ============================================================== -->
             </div>
             <!-- ============================================================== -->
@@ -374,30 +358,18 @@ and open the template in the editor.
     <!-- Bootstrap tether Core JavaScript -->
     <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="assets/extra-libs/sparkline/sparkline.js"></script>
-    <script src="dist/js/constantes.js"></script>
-    <script src="dist/js/request.js"></script>
-    <script src="dist/js/generico.js"></script>
-    <script src="dist/js/controller_login.js"></script>
     <!--Wave Effects -->
     <script src="dist/js/waves.js"></script>
     <!--Menu sidebar -->
     <script src="dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="dist/js/custom.min.js"></script>
-    <!--This page JavaScript -->
-    <!-- <script src="../../dist/js/pages/dashboards/dashboard1.js"></script> -->
-    <!-- Charts js Files -->
-    <script src="assets/libs/flot/excanvas.js"></script>
-    <script src="assets/libs/flot/jquery.flot.js"></script>
-    <script src="assets/libs/flot/jquery.flot.pie.js"></script>
-    <script src="assets/libs/flot/jquery.flot.time.js"></script>
-    <script src="assets/libs/flot/jquery.flot.stack.js"></script>
-    <script src="assets/libs/flot/jquery.flot.crosshair.js"></script>
-    <script src="assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-    <script src="dist/js/pages/chart/chart-page-init.js"></script>
-
+    <!-- this page js -->
+    <script src="assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    <script src="assets/libs/magnific-popup/meg.init.js"></script>
 </body>
 
 </html>
